@@ -1,0 +1,27 @@
+name: PR01 evidence
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download pinned course kit
+        shell: bash
+        run: |
+          kit_url="$(python3 -c 'import json; print(json.load(open("course-kit.lock.json"))["archive_url"])')"
+          kit_sha256="$(python3 -c 'import json; print(json.load(open("course-kit.lock.json"))["sha256"])')"
+          curl -fsSLo course-kit.tar.gz "$kit_url"
+          printf '%s  %s\n' "$kit_sha256" course-kit.tar.gz | sha256sum -c -
+          mkdir -p .course-kit
+          tar -xzf course-kit.tar.gz -C .course-kit
+      - name: Validate environment JSON
+        run: python3 -m json.tool evidence/pr01/environment.json > /dev/null
+      - name: Check PR01 evidence and Git history
+        run: python3 .course-kit/v1/tools/check_practice.py PR01 --submission .
