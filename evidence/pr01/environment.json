@@ -1,0 +1,31 @@
+{
+  "launch_method": "docker",
+  "os": {
+    "PRETTY_NAME": "Ubuntu 24.04.4 LTS",
+    "VERSION_ID": "24.04",
+    "VERSION_CODENAME": "noble"
+  },
+  "architecture": "x86_64",
+  "kernel": "7.0.0-31-generic",
+  "ros_distribution": "jazzy",
+  "ros_version": "2",
+  "rmw": "rmw_fastrtps_cpp",
+  "gazebo_sim_version": "8.11.0",
+  "host_os": "Ubuntu 24.04.5 LTS",
+  "docker": {
+    "engine_version": "29.8.1",
+    "image": "osrf/ros@sha256:ae7ad3ac243da1dfd8bd402a2fa08e149ffbf7a385013bd8ef798d0800accdc8",
+    "image_digest": "sha256:ae7ad3ac243da1dfd8bd402a2fa08e149ffbf7a385013bd8ef798d0800accdc8",
+    "container_name": "mechatronics-pr01",
+    "network_mode": "host",
+    "gui": "X11 via XWayland with read-only Xauthority cookie"
+  },
+  "domains": {
+    "simulator": 16,
+    "teleop_before": 16,
+    "teleop_broken": 17,
+    "observer_broken": 17,
+    "teleop_fixed": 16,
+    "observer_fixed": 16
+  }
+}

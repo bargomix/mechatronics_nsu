@@ -1,0 +1,7 @@
+QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+[INFO] [1790749507.738019895] [turtlesim]: Starting turtlesim with node name /turtlesim
+[INFO] [1790749507.751991861] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+_amdgpu_device_initialize: amdgpu_get_auth (1) failed (-1)
+amdgpu: amdgpu_device_initialize failed.
+glx: failed to create dri3 screen
+failed to load driver: radeonsi

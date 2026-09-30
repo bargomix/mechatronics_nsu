@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR01",
+  "commit": "d12fc3cdbe4b2103051f253e3ba2020abac42283",
+  "course_kit": {
+    "version": "v1-w04",
+    "archive_sha256": "fec6b4e886c19146078bf69fbf90a19279a4cd33f656642395350b299efeb226"
+  },
+  "commands": [
+    "./scripts/docker-start.sh",
+    "source /opt/ros/jazzy/setup.bash",
+    "export ROS_DOMAIN_ID=16",
+    "ros2 run turtlesim turtlesim_node",
+    "ros2 run turtlesim turtle_teleop_key",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 topic list -t",
+    "ros2 node info /turtlesim",
+    "ros2 topic type /turtle1/pose",
+    "timeout 5s ros2 topic echo /turtle1/pose --once",
+    "ros2 doctor --report",
+    "timeout --signal=INT --kill-after=3s 12s ros2 topic hz /turtle1/pose",
+    "export ROS_DOMAIN_ID=17",
+    "ros2 run turtlesim turtle_teleop_key",
+    "POSE_TYPE=$(cat /work/evidence/pr01/pose-type.txt)",
+    "timeout 5s ros2 topic echo /turtle1/pose \"$POSE_TYPE\" --once",
+    "export ROS_DOMAIN_ID=16",
+    "ros2 run turtlesim turtle_teleop_key",
+    "timeout 5s ros2 topic echo /turtle1/pose \"$POSE_TYPE\" --once",
+    "gz sim --versions"
+  ],
+  "tests": [
+    {
+      "name": "Исходный граф: обе ноды, топики и тип turtlesim/msg/Pose",
+      "status": "passed",
+      "evidence": [
+        "nodes-before.txt",
+        "topics-before.txt",
+        "turtlesim-info.txt",
+        "pose-type.txt"
+      ]
+    },
+    {
+      "name": "Получение позы в домене 16",
+      "status": "passed",
+      "exit_code": 0,
+      "evidence": [
+        "pose-before.txt",
+        "pose-before-exit.txt"
+      ]
+    },
+    {
+      "name": "Управление стрелкой в домене 16 изменяет координату",
+      "status": "passed",
+      "evidence": [
+        "pose-before.txt",
+        "pose-after-key-before.txt"
+      ]
+    },
+    {
+      "name": "Замер частоты позы, команда 12 секунд",
+      "status": "passed",
+      "result_hz": 62.5,
+      "evidence": [
+        "pose-hz.txt",
+        "pose-hz-exit.txt"
+      ]
+    },
+    {
+      "name": "Разрыв домена 16/17: поза не приходит за 5 секунд",
+      "status": "passed",
+      "expected_exit_code": 124,
+      "actual_exit_code": 124,
+      "evidence": [
+        "nodes-broken.txt",
+        "pose-broken.txt",
+        "pose-broken-exit.txt"
+      ]
+    },
+    {
+      "name": "Стрелка teleop домена 17 не изменяет позу симулятора домена 16",
+      "status": "passed",
+      "evidence": [
+        "pose-after-key-before.txt",
+        "pose-after-key-broken-in-domain16.txt"
+      ]
+    },
+    {
+      "name": "Восстановление домена 16: та же проверка получает позу",
+      "status": "passed",
+      "actual_exit_code": 0,
+      "evidence": [
+        "nodes-fixed.txt",
+        "pose-fixed.txt",
+        "pose-fixed-exit.txt"
+      ]
+    },
+    {
+      "name": "После восстановления стрелка снова изменяет координату",
+      "status": "passed",
+      "evidence": [
+        "pose-fixed.txt",
+        "pose-after-key-fixed.txt"
+      ]
+    }
+  ],
+  "defect": {
+    "reproducer": "Симулятор оставлен в ROS_DOMAIN_ID=16; teleop остановлен и запущен с ROS_DOMAIN_ID=17. В CLI домена 17 timeout 5s ros2 topic echo /turtle1/pose turtlesim/msg/Pose --once не получает позу и завершается exit=124; node list --no-daemon показывает только /teleop_turtle. Стрелка не меняет координату симулятора.",
+    "root_cause": "Разные ROS_DOMAIN_ID изолируют участников DDS. Значение применяется при запуске процесса; изменение export не перенастраивает работающую ноду. Teleop требует перезапуска в домене симулятора.",
+    "proof_after": "Teleop перезапущен в ROS_DOMAIN_ID=16; CLI возвращён в 16. Та же команда timeout 5s ros2 topic echo /turtle1/pose turtlesim/msg/Pose --once получает сообщение, exit=0; видны обе ноды. Стрелка изменяет x с 7.560444 до 9.576445."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "ai_used": true
+}
