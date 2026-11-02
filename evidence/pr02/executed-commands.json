@@ -1,0 +1,150 @@
+[
+  {
+    "file": "package-prefix.txt",
+    "command": "ros2 pkg prefix turtle_bringup",
+    "exit_code": 0
+  },
+  {
+    "file": "installed-launch.txt",
+    "command": "ls -l /work/install/turtle_bringup/share/turtle_bringup/launch",
+    "exit_code": 0
+  },
+  {
+    "file": "py-compile.txt",
+    "command": "python3 -m py_compile src/turtle_bringup/launch/sim.launch.py",
+    "exit_code": 0
+  },
+  {
+    "file": "nodes-before-launch.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "launch-stop.txt",
+    "command": "ros2 launch turtle_bringup sim.launch.py",
+    "pid": 549,
+    "exit_code": 0,
+    "stop": "SIGINT (equivalent to Ctrl+C)"
+  },
+  {
+    "file": "nodes-launch.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "nodes-after-stop.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "launch-experiment.txt",
+    "command": "ros2 launch turtle_bringup sim.launch.py",
+    "pid": 600,
+    "exit_code": 0,
+    "stop": "SIGINT (equivalent to Ctrl+C)"
+  },
+  {
+    "file": "nodes-experiment.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "topics.txt",
+    "command": "ros2 topic list -t",
+    "exit_code": 0
+  },
+  {
+    "file": "node-info.txt",
+    "command": "ros2 node info /turtlesim",
+    "exit_code": 0
+  },
+  {
+    "file": "twist.txt",
+    "command": "ros2 interface show geometry_msgs/msg/Twist",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-type.txt",
+    "command": "ros2 topic type /turtle1/pose",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-interface.txt",
+    "command": "ros2 interface show turtlesim/msg/Pose",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-before.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "publish-once.txt",
+    "command": "ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 1.0}, angular: {z: 0.5}}'",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-after-once.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "publish-broken.txt",
+    "command": "ros2 topic pub --rate 1 --wait-matching-subscriptions 0 /cmd_vel geometry_msgs/msg/Twist '{linear: {x: 1.0}, angular: {z: 0.5}}'",
+    "pid": 696,
+    "exit_code": 2,
+    "stop": "SIGINT (equivalent to Ctrl+C)"
+  },
+  {
+    "file": "topic-broken.txt",
+    "command": "ros2 topic info /cmd_vel --verbose",
+    "exit_code": 0
+  },
+  {
+    "file": "topic-correct-during-break.txt",
+    "command": "ros2 topic info /turtle1/cmd_vel --verbose",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-broken.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-broken-again.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "publish-fixed.txt",
+    "command": "ros2 topic pub --rate 1 --wait-matching-subscriptions 0 /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 1.0}, angular: {z: 0.5}}'",
+    "pid": 747,
+    "exit_code": 2,
+    "stop": "SIGINT (equivalent to Ctrl+C)"
+  },
+  {
+    "file": "topic-fixed.txt",
+    "command": "ros2 topic info /turtle1/cmd_vel --verbose",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-fixed-moving.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-fixed-stopped.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-fixed-stopped-again.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "nodes-final.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  }
+]

@@ -1,0 +1,15 @@
+[INFO] [launch]: All log files can be found below /tmp/ros-home/.ros/log/2026-11-02-08-51-59-973153-bargomix-549
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [turtlesim_node-1]: process started with pid [552]
+[turtlesim_node-1] QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+[turtlesim_node-1] [INFO] [1793609520.282894927] [turtlesim]: Starting turtlesim with node name /turtlesim
+[turtlesim_node-1] [INFO] [1793609520.297660380] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[turtlesim_node-1] _amdgpu_device_initialize: amdgpu_get_auth (1) failed (-1)
+[turtlesim_node-1] amdgpu: amdgpu_device_initialize failed.
+[turtlesim_node-1] glx: failed to create dri3 screen
+[turtlesim_node-1] failed to load driver: radeonsi
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [turtlesim_node-1]: sending signal 'SIGINT' to process[turtlesim_node-1]
+[turtlesim_node-1] [INFO] [1793609525.543702357] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[turtlesim_node-1] [INFO] [1793609525.546807658] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [turtlesim_node-1]: process has finished cleanly [pid 552]

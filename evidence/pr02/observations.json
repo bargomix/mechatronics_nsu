@@ -1,0 +1,61 @@
+{
+  "ros_distribution": "jazzy",
+  "ros_domain_id": 16,
+  "pose_type": "turtlesim/msg/Pose",
+  "before": {
+    "x": 5.544444561004639,
+    "y": 5.544444561004639,
+    "theta": 0.0,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "after_once": {
+    "x": 6.509308815002441,
+    "y": 5.796990871429443,
+    "theta": 0.5040000081062317,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "broken": {
+    "x": 6.509308815002441,
+    "y": 5.796990871429443,
+    "theta": 0.5040000081062317,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "broken_again": {
+    "x": 6.509308815002441,
+    "y": 5.796990871429443,
+    "theta": 0.5040000081062317,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "fixed_moving": {
+    "x": 6.153402328491211,
+    "y": 9.44690227508545,
+    "theta": 2.8239998817443848,
+    "linear_velocity": 1.0,
+    "angular_velocity": 0.5
+  },
+  "fixed_stopped": {
+    "x": 5.794905662536621,
+    "y": 9.527667999267578,
+    "theta": 3.007999897003174,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "fixed_stopped_again": {
+    "x": 5.794905662536621,
+    "y": 9.527667999267578,
+    "theta": 3.007999897003174,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "checks": {
+    "single_command_moves": true,
+    "wrong_topic_stays_still": true,
+    "fixed_topic_moves": true,
+    "stops_without_commands": true,
+    "launch_sigint_cleans_up": true
+  }
+}
