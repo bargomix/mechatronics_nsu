@@ -1,4 +1,12 @@
-# ПР01. Окружение и граф ROS 2
+# Практические работы по ROS 2
+
+Текущая работа: [ПР02 — пакет и запуск turtlesim](docs/pr02.md).
+Её результаты находятся в `evidence/pr02/`, исходники — `src/turtle_bringup/`.
+CI и `course-kit.lock.json` относятся к ПР02. ПР01 сохраняет kit `v1-w04`
+и проверяется на её исходном evidence-коммите: checker сравнивает все
+изменения реализации с `report.commit` и не рассчитан на последующие ПР.
+
+## ПР01. Окружение и граф ROS 2
 
 Среда: Docker, Ubuntu 24.04, ROS 2 Jazzy. Образ закреплён digest в
 `docker-image.txt`, версия course kit и SHA-256 — в `course-kit.lock.json`.
