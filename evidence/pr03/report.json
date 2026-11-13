@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR03",
+  "commit": "fc3267601aa96413085a64c5bcac4c3e768c838c",
+  "course_kit": {
+    "version": "v1-w10",
+    "archive_sha256": "7a91d388d7bd3def7e058c8da48c32ff27ea6f14dc880a2da169c4102d456874"
+  },
+  "commands": [
+    "./scripts/docker-start.sh",
+    "source /opt/ros/jazzy/setup.bash",
+    "export ROS_DOMAIN_ID=16",
+    "ros2 pkg create --build-type ament_python --license Apache-2.0 --node-name patrol patrol --dependencies rclpy geometry_msgs",
+    "colcon build --symlink-install --packages-select patrol",
+    "source install/setup.bash",
+    "ros2 run patrol patrol",
+    "ros2 node list --no-daemon --spin-time 2",
+    "colcon build --symlink-install --packages-select turtle_bringup patrol",
+    "python3 -m pytest src/patrol/test",
+    "python3 scripts/pr03-experiment.py",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 pkg prefix patrol",
+    "ros2 pkg executables patrol",
+    "ros2 run patrol patrol",
+    "ros2 topic echo /cmd_vel --once",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 launch turtle_bringup sim.launch.py",
+    "ros2 topic type /turtle1/pose",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 node info /patrol",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 run patrol patrol",
+    "ros2 node info /patrol",
+    "ros2 topic info /cmd_vel --verbose",
+    "ros2 topic info /turtle1/cmd_vel --verbose",
+    "ros2 topic echo /cmd_vel --once",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel",
+    "ros2 node info /patrol",
+    "ros2 topic info /turtle1/cmd_vel --verbose",
+    "ros2 topic echo /turtle1/cmd_vel --once",
+    "ros2 topic echo /turtle1/pose --once",
+    "timeout --signal=INT --kill-after=3s 10s ros2 topic hz /turtle1/cmd_vel",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 topic echo /turtle1/pose --once",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 node list --no-daemon --spin-time 2"
+  ],
+  "tests": [
+    {
+      "name": "Запуск минимальной ноды /patrol до подписки и таймера",
+      "status": "passed",
+      "evidence": [
+        "build-minimal.txt",
+        "nodes-minimal.txt",
+        "minimal-check.json"
+      ]
+    },
+    {
+      "name": "Сборка turtle_bringup и patrol",
+      "status": "passed",
+      "evidence": [
+        "build.txt"
+      ]
+    },
+    {
+      "name": "Пять тестов чистой функции выбора команды",
+      "status": "passed",
+      "evidence": [
+        "tests.txt"
+      ]
+    },
+    {
+      "name": "Реальный таймер выдаёт нулевой Twist до первой позы",
+      "status": "passed",
+      "evidence": [
+        "command-no-pose.txt"
+      ]
+    },
+    {
+      "name": "Исправный запуск: подписка на позу и движение",
+      "status": "passed",
+      "evidence": [
+        "node-working.txt",
+        "pose-before.txt",
+        "pose-working.txt"
+      ]
+    },
+    {
+      "name": "Сбой относительного cmd_vel: нет подписчика turtlesim, поза неизменна",
+      "status": "passed",
+      "evidence": [
+        "topic-broken.txt",
+        "topic-disconnected.txt",
+        "command-broken.txt",
+        "pose-broken.txt",
+        "pose-broken-again.txt"
+      ]
+    },
+    {
+      "name": "Remap без изменения кода восстанавливает движение",
+      "status": "passed",
+      "evidence": [
+        "node-fixed.txt",
+        "topic-fixed.txt",
+        "command-fixed.txt",
+        "pose-fixed.txt"
+      ]
+    },
+    {
+      "name": "Измерение реальной частоты команды за 10 секунд",
+      "status": "passed",
+      "evidence": [
+        "cmd-vel-hz.txt",
+        "observations.json"
+      ]
+    },
+    {
+      "name": "После SIGINT ноды дождались остановки turtlesim",
+      "status": "passed",
+      "evidence": [
+        "pose-stopped.txt",
+        "pose-stopped-again.txt",
+        "nodes-after-patrol.txt"
+      ]
+    },
+    {
+      "name": "Все запущенные ноды завершены",
+      "status": "passed",
+      "evidence": [
+        "nodes-final.txt",
+        "executed-commands.json"
+      ]
+    },
+    {
+      "name": "Сборка и pytest из CI на чистой копии исходников",
+      "status": "passed",
+      "evidence": [
+        "ci-local.txt",
+        "ci-local.json"
+      ]
+    }
+  ],
+  "defect": {
+    "reproducer": "При работающем turtlesim запустить ros2 run patrol patrol без remap. Node info показывает подписку на /turtle1/pose, а topic echo /cmd_vel получает Twist 0.5/0.3. Topic info: у /cmd_vel 1 издатель и 0 подписчиков, у /turtle1/cmd_vel 0 издателей и 1 подписчик. Две позы подряд совпадают.",
+    "root_cause": "Относительное cmd_vel у ноды /patrol в корневом namespace разрешается в /cmd_vel. Turtlesim подписан на другое полное имя /turtle1/cmd_vel. Совпадения типа geometry_msgs/msg/Twist и домена недостаточно для доставки при разных именах.",
+    "proof_after": "Та же нода перезапущена только с --ros-args -r cmd_vel:=/turtle1/cmd_vel. У правильного топика по одному издателю и подписчику, команда 0.5/0.3 сохранена; поза меняется. Замер за 10 секунд: 10.000 Гц. После остановки ноды и ожидания скорости нулевые, повторные позы совпадают."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "time_note": "Нормативная трудоёмкость из задания; фактическое время студента не измерялось.",
+  "ai_used": true
+}

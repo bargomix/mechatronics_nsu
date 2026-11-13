@@ -1,0 +1,9 @@
+{
+  "command": "ros2 run patrol patrol",
+  "node_list_exit_code": 0,
+  "nodes": [
+    "/patrol"
+  ],
+  "stop": "SIGINT",
+  "process_exit_code": 0
+}

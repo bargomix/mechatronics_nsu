@@ -1,0 +1,88 @@
+{
+  "ros_distribution": "jazzy",
+  "ros_domain_id": 16,
+  "pose_type": "turtlesim/msg/Pose",
+  "command_without_pose": {
+    "linear.x": 0.0,
+    "linear.y": 0.0,
+    "linear.z": 0.0,
+    "angular.x": 0.0,
+    "angular.y": 0.0,
+    "angular.z": 0.0
+  },
+  "before": {
+    "x": 5.544444561004639,
+    "y": 5.544444561004639,
+    "theta": 0.0,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "working": {
+    "x": 6.9543023109436035,
+    "y": 8.093598365783691,
+    "theta": 2.1263999938964844,
+    "linear_velocity": 0.5,
+    "angular_velocity": 0.30000001192092896
+  },
+  "stopped_before_break": {
+    "x": 6.565454483032227,
+    "y": 8.525314331054688,
+    "theta": 2.476799964904785,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "broken": {
+    "x": 6.565454483032227,
+    "y": 8.525314331054688,
+    "theta": 2.476799964904785,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "broken_again": {
+    "x": 6.565454483032227,
+    "y": 8.525314331054688,
+    "theta": 2.476799964904785,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "fixed": {
+    "x": 3.8768975734710693,
+    "y": 7.1091532707214355,
+    "theta": -1.5119853019714355,
+    "linear_velocity": 0.5,
+    "angular_velocity": 0.30000001192092896
+  },
+  "fixed_command": {
+    "linear.x": 0.5,
+    "linear.y": 0.0,
+    "linear.z": 0.0,
+    "angular.x": 0.0,
+    "angular.y": 0.0,
+    "angular.z": 0.3
+  },
+  "measured_rate_hz": 10.0,
+  "measurement_duration_s": 10,
+  "stopped": {
+    "x": 7.046358585357666,
+    "y": 7.925254821777344,
+    "theta": 2.0112147331237793,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "stopped_again": {
+    "x": 7.046358585357666,
+    "y": 7.925254821777344,
+    "theta": 2.0112147331237793,
+    "linear_velocity": 0.0,
+    "angular_velocity": 0.0
+  },
+  "checks": {
+    "zero_before_first_pose": true,
+    "initial_connection_works": true,
+    "wrong_name_reproduced": true,
+    "remap_restores_movement": true,
+    "command_rate_near_10_hz": true,
+    "turtlesim_stops_after_patrol": true,
+    "all_started_nodes_stopped": true
+  }
+}

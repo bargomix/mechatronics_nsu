@@ -1,0 +1,167 @@
+[
+  {
+    "file": "nodes-before.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "patrol-prefix.txt",
+    "command": "ros2 pkg prefix patrol",
+    "exit_code": 0
+  },
+  {
+    "file": "patrol-executable.txt",
+    "command": "ros2 pkg executables patrol",
+    "exit_code": 0
+  },
+  {
+    "file": "patrol-no-pose.txt",
+    "command": "ros2 run patrol patrol",
+    "pid": 221,
+    "exit_code": 0,
+    "stop": "SIGINT, as with Ctrl+C"
+  },
+  {
+    "file": "command-no-pose.txt",
+    "command": "ros2 topic echo /cmd_vel --once",
+    "exit_code": 0
+  },
+  {
+    "file": "nodes-after-no-pose.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "turtlesim.txt",
+    "command": "ros2 launch turtle_bringup sim.launch.py",
+    "pid": 284,
+    "exit_code": 0,
+    "stop": "SIGINT, as with Ctrl+C"
+  },
+  {
+    "file": "pose-type.txt",
+    "command": "ros2 topic type /turtle1/pose",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-before.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "patrol-before.txt",
+    "command": "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel",
+    "pid": 323,
+    "exit_code": 0,
+    "stop": "SIGINT, as with Ctrl+C"
+  },
+  {
+    "file": "nodes-working.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "node-working.txt",
+    "command": "ros2 node info /patrol",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-working.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-stopped-before-break.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "patrol-broken.txt",
+    "command": "ros2 run patrol patrol",
+    "pid": 389,
+    "exit_code": 0,
+    "stop": "SIGINT, as with Ctrl+C"
+  },
+  {
+    "file": "node-broken.txt",
+    "command": "ros2 node info /patrol",
+    "exit_code": 0
+  },
+  {
+    "file": "topic-broken.txt",
+    "command": "ros2 topic info /cmd_vel --verbose",
+    "exit_code": 0
+  },
+  {
+    "file": "topic-disconnected.txt",
+    "command": "ros2 topic info /turtle1/cmd_vel --verbose",
+    "exit_code": 0
+  },
+  {
+    "file": "command-broken.txt",
+    "command": "ros2 topic echo /cmd_vel --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-broken.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-broken-again.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "patrol-fixed.txt",
+    "command": "ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel",
+    "pid": 461,
+    "exit_code": 0,
+    "stop": "SIGINT, as with Ctrl+C"
+  },
+  {
+    "file": "node-fixed.txt",
+    "command": "ros2 node info /patrol",
+    "exit_code": 0
+  },
+  {
+    "file": "topic-fixed.txt",
+    "command": "ros2 topic info /turtle1/cmd_vel --verbose",
+    "exit_code": 0
+  },
+  {
+    "file": "command-fixed.txt",
+    "command": "ros2 topic echo /turtle1/cmd_vel --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-fixed.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "cmd-vel-hz.txt",
+    "command": "timeout --signal=INT --kill-after=3s 10s ros2 topic hz /turtle1/cmd_vel",
+    "exit_code": 124
+  },
+  {
+    "file": "pose-stopped.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "pose-stopped-again.txt",
+    "command": "ros2 topic echo /turtle1/pose --once",
+    "exit_code": 0
+  },
+  {
+    "file": "nodes-after-patrol.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  },
+  {
+    "file": "nodes-final.txt",
+    "command": "ros2 node list --no-daemon --spin-time 2",
+    "exit_code": 0
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "step": "Build launch and patrol, then run tests in pinned ROS image",
+  "script": "image=\"$(cat docker-image.txt)\"\ndocker run --rm \\\n  --user \"$(id -u):$(id -g)\" \\\n  --mount \"type=bind,source=$GITHUB_WORKSPACE,target=/work\" \\\n  --workdir /work \\\n  \"$image\" bash -ec '\n    source /opt/ros/jazzy/setup.bash\n    colcon build --symlink-install --packages-select turtle_bringup patrol\n    source install/setup.bash\n    test -f \"$(ros2 pkg prefix turtle_bringup)/share/turtle_bringup/launch/sim.launch.py\"\n    python3 -m py_compile src/turtle_bringup/launch/sim.launch.py\n    ros2 pkg executables patrol | grep -Fx \"patrol patrol\"\n    python3 -m pytest src/patrol/test\n  '\n",
+  "exit_code": 0,
+  "clean_source_copy": true
+}

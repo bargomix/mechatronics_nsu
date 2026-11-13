@@ -1,0 +1,1 @@
+[INFO] [1794558650.630224176] [patrol]: Minimal patrol node is running
