@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR04",
+  "commit": "5ae72091e47d4a6f11c9d11ec860792497e04f08",
+  "course_kit": {
+    "version": "v1-w11",
+    "archive_sha256": "0b67bfd41448549d21122124b7f49211ba2cd068cc56751871f319eadeb9d0ab"
+  },
+  "commands": [
+    "colcon build --symlink-install --packages-select turtle_bringup patrol",
+    "python3 -m pytest src/patrol/test",
+    "colcon test --packages-select turtle_bringup patrol",
+    "colcon test-result --verbose",
+    "python3 /repo/scripts/pr04-experiment.py --output /pr04/experiment",
+    "ros2 param set /patrol publish_hz 5.0 --no-daemon --spin-time 2",
+    "ros2 param set /patrol publish_hz 0.0 --no-daemon --spin-time 2",
+    "timeout --signal=INT --kill-after=3s 8s ros2 topic hz /turtle1/cmd_vel",
+    "ros2 service call /clear std_srvs/srv/Empty '{}'",
+    "ros2 action list -t"
+  ],
+  "tests": [
+    {
+      "name": "Сборка и 23 теста patrol",
+      "status": "passed",
+      "evidence": ["build.txt", "tests.txt"]
+    },
+    {
+      "name": "Смена таймера и отказ без изменения параметров",
+      "status": "passed",
+      "evidence": ["tests.txt"]
+    },
+    {
+      "name": "Переход 10 → 5 Гц и новые скорости в Twist",
+      "status": "passed",
+      "evidence": ["measurements.json", "hz-initial.txt", "hz-five.txt", "command-after-zero.txt", "patrol-fixed.txt"]
+    },
+    {
+      "name": "Ноль без проверки и с проверкой",
+      "status": "passed",
+      "evidence": ["commands.json", "defect.patch", "patrol-defect.txt", "zero-rejected.txt", "frequency-after-zero.txt", "hz-after-zero.txt"]
+    },
+    {
+      "name": "Сервис /clear и действие /turtle1/rotate_absolute",
+      "status": "passed",
+      "evidence": ["clear-service.txt", "actions.txt"]
+    }
+  ],
+  "defect": {
+    "reproducer": "В копии с пропущенной проверкой установить 5.0 Гц, затем выполнить ros2 param set /patrol publish_hz 0.0. Нода завершилась с кодом 1, клиент с кодом 124 по таймауту.",
+    "root_cause": "При нулевой частоте 1.0 / publish_hz вызывает ZeroDivisionError.",
+    "proof_after": "Ноль отклонён. Значение параметра осталось 5.0, поток около 5 Гц. Активен один таймер с периодом 0.2 с."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "time_note": "По нормативу из задания.",
+  "ai_used": true
+}

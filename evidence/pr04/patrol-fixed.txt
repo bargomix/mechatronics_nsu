@@ -1,0 +1,5 @@
+[INFO] [1795363027.169622513] [patrol]: Patrol started: linear_speed=0.5 m/s, turn_rate=0.3 rad/s, publish_hz=10.0 Hz, timer period=0.100 s, timers=1
+[INFO] [1795363043.011922388] [patrol]: Applied {'publish_hz': 5.0}: linear_speed=0.5 m/s, turn_rate=0.3 rad/s, publish_hz=5.0 Hz, timer period=0.200 s, timers=1
+[INFO] [1795363058.056028889] [patrol]: Applied {'linear_speed': 0.25}: linear_speed=0.25 m/s, turn_rate=0.3 rad/s, publish_hz=5.0 Hz, timer period=0.200 s, timers=1
+[INFO] [1795363063.890640818] [patrol]: Applied {'turn_rate': -0.2}: linear_speed=0.25 m/s, turn_rate=-0.2 rad/s, publish_hz=5.0 Hz, timer period=0.200 s, timers=1
+[WARN] [1795363069.832106061] [patrol]: Rejected: publish_hz must be from 1.0 to 30.0 Hz, got 0.0

@@ -1,0 +1,11 @@
+--- a/src/patrol/patrol/settings.py
++++ b/src/patrol/patrol/settings.py
+@@ -32,7 +32,7 @@
+         if isinstance(value, bool) or not isinstance(value, (int, float)):
+             raise ValueError(f'{name} must be a number, got {value!r}')
+         low, high, unit = LIMITS[name]
+-        if not low <= value <= high:
++        if name != 'publish_hz' and not low <= value <= high:
+             raise ValueError(f'{name} must be from {low} to {high} {unit}, got {value}')
+         checked[name] = float(value)
+     return replace(settings, **checked)

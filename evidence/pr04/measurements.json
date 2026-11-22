@@ -1,0 +1,5 @@
+{
+  "initial_hz": 9.999,
+  "changed_hz": 4.999,
+  "after_rejected_zero_hz": 5.184
+}
