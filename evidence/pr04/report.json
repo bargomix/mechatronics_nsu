@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "practice_id": "PR04",
-  "commit": "5ae72091e47d4a6f11c9d11ec860792497e04f08",
+  "commit": "5a81f36ef96363f3b58c93db097388527d85fa93",
   "course_kit": {
     "version": "v1-w11",
     "archive_sha256": "0b67bfd41448549d21122124b7f49211ba2cd068cc56751871f319eadeb9d0ab"
