@@ -1,5 +1,5 @@
 {
-  "version": "v1-w10",
-  "archive_url": "https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w10-7a91d388d7bd.tar.gz",
-  "sha256": "7a91d388d7bd3def7e058c8da48c32ff27ea6f14dc880a2da169c4102d456874"
+  "version": "v1-w11",
+  "archive_url": "https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w11-0b67bfd41448.tar.gz",
+  "sha256": "0b67bfd41448549d21122124b7f49211ba2cd068cc56751871f319eadeb9d0ab"
 }

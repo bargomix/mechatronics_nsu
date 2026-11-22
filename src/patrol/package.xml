@@ -9,6 +9,7 @@
 
   <depend>rclpy</depend>
   <depend>geometry_msgs</depend>
+  <depend>rcl_interfaces</depend>
   <depend>turtlesim</depend>
 
   <test_depend>python3-pytest</test_depend>

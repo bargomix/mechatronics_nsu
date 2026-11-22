@@ -1,4 +1,4 @@
-name: PR03 build, tests and evidence
+name: PR04 build, tests and evidence
 
 on: [push, pull_request]
 
@@ -38,7 +38,7 @@ jobs:
           printf '%s  %s\n' "$kit_sha256" course-kit.tar.gz | sha256sum -c -
           mkdir -p .course-kit
           tar -xzf course-kit.tar.gz -C .course-kit
-      - name: Validate PR03 report JSON
-        run: python3 -m json.tool evidence/pr03/report.json > /dev/null
-      - name: Check PR03 evidence and Git history
-        run: python3 .course-kit/v1/tools/check_practice.py PR03 --submission .
+      - name: Validate PR04 report JSON
+        run: python3 -m json.tool evidence/pr04/report.json > /dev/null
+      - name: Check PR04 evidence and Git history
+        run: python3 .course-kit/v1/tools/check_practice.py PR04 --submission .

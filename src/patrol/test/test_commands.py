@@ -6,9 +6,10 @@ from turtlesim.msg import Pose
 from patrol.commands import choose_command
 
 
-def test_no_pose_produces_zero_command():
+@pytest.mark.parametrize('speeds', [(), (0.25, -0.2)])
+def test_no_pose_produces_zero_command(speeds):
     """A timer tick before the first pose must not move the turtle."""
-    command = choose_command(None)
+    command = choose_command(None, *speeds)
 
     assert command.linear.x == 0.0
     assert command.linear.y == 0.0
@@ -47,3 +48,10 @@ def test_commands_do_not_share_mutable_state():
 
     assert following.linear.x == 0.5
     assert following.angular.z == 0.3
+
+
+def test_configured_speeds():
+    command = choose_command(Pose(), linear_speed=0.25, turn_rate=-0.2)
+
+    assert command.linear.x == 0.25
+    assert command.angular.z == -0.2

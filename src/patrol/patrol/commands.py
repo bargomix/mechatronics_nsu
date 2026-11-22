@@ -1,13 +1,18 @@
-"""Choose a velocity command without ROS nodes, callbacks or side effects."""
-
 from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
 
+from patrol.settings import Settings
 
-def choose_command(pose: Pose | None) -> Twist:
-    """Stay still until the first pose, then move forward along an arc."""
+_DEFAULTS = Settings()
+
+
+def choose_command(
+    pose: Pose | None,
+    linear_speed: float = _DEFAULTS.linear_speed,
+    turn_rate: float = _DEFAULTS.turn_rate,
+) -> Twist:
     command = Twist()
     if pose is not None:
-        command.linear.x = 0.5
-        command.angular.z = 0.3
+        command.linear.x = linear_speed
+        command.angular.z = turn_rate
     return command
