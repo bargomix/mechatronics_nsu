@@ -18,6 +18,7 @@ jobs:
           image="$(cat docker-image.txt)"
           docker run --rm \
             --user "$(id -u):$(id -g)" \
+            --env ROS_LOG_DIR=/tmp/ros-logs \
             --mount "type=bind,source=$GITHUB_WORKSPACE,target=/work" \
             --workdir /work \
             "$image" bash -ec '
