@@ -1,0 +1,54 @@
+[INFO] [launch]: All log files can be found below /tmp/pr05-ros-logs/2026-11-23-11-37-28-309783-e43fa5380065-46
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Recording /robot_a/sensor_pose: false, subscriber: reliable
+[INFO] [turtlesim_node-1]: process started with pid [52]
+[INFO] [patrol-2]: process started with pid [53]
+[INFO] [pose_relay-3]: process started with pid [54]
+[INFO] [pose_subscriber-4]: process started with pid [55]
+[turtlesim_node-1] QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+[turtlesim_node-1] [INFO] [1795433848.642338162] [turtlesim]: Starting turtlesim with node name /turtlesim
+[turtlesim_node-1] [INFO] [1795433848.655998338] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[pose_relay-3] [INFO] [1795433849.295641401] [robot_a.pose_relay]: Relaying pose to sensor_pose with best_effort
+[pose_subscriber-4] [INFO] [1795433849.297664473] [robot_a.pose_subscriber]: reliability=reliable
+[pose_subscriber-4] [WARN] [1795433849.345630341] [robot_a.pose_subscriber]: New publisher discovered on topic 'sensor_pose', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
+[pose_relay-3] [WARN] [1795433849.345723425] [robot_a.pose_relay]: New subscription discovered on topic 'sensor_pose', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY
+[patrol-2] [INFO] [1795433849.423729580] [robot_a.patrol]: Patrol started: linear_speed=0.5 m/s, turn_rate=0.3 rad/s, publish_hz=10.0 Hz, timer period=0.100 s, timers=1
+[pose_subscriber-4] [INFO] [1795433850.254020158] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433851.253404150] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433852.253355690] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433853.253215376] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433854.254072294] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433855.253241776] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433856.253557347] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433857.253580520] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433858.253242526] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433859.253235027] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433860.253268612] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433861.253558606] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433862.253800677] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433863.253864563] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433864.253753820] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433865.253811551] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433866.253023337] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433867.253401723] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433868.253440942] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433869.253636160] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433870.253406874] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433871.253358573] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433872.253445402] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433873.253364887] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433874.253455920] [robot_a.pose_subscriber]: received=0
+[pose_relay-3] [WARN] [1795433874.597807644] [robot_a.pose_relay]: New subscription discovered on topic 'sensor_pose', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY
+[pose_subscriber-4] [INFO] [1795433875.253522485] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433876.253335525] [robot_a.pose_subscriber]: received=0
+[pose_subscriber-4] [INFO] [1795433877.253388411] [robot_a.pose_subscriber]: received=0
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [pose_subscriber-4]: sending signal 'SIGINT' to process[pose_subscriber-4]
+[INFO] [pose_relay-3]: sending signal 'SIGINT' to process[pose_relay-3]
+[INFO] [patrol-2]: sending signal 'SIGINT' to process[patrol-2]
+[INFO] [turtlesim_node-1]: sending signal 'SIGINT' to process[turtlesim_node-1]
+[turtlesim_node-1] [INFO] [1795433877.771649319] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [turtlesim_node-1]: process has finished cleanly [pid 52]
+[INFO] [pose_subscriber-4]: process has finished cleanly [pid 55]
+[INFO] [pose_relay-3]: process has finished cleanly [pid 54]
+[INFO] [patrol-2]: process has finished cleanly [pid 53]

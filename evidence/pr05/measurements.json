@@ -1,0 +1,8 @@
+{
+  "topic": "/robot_a/sensor_pose",
+  "pose_type": "turtlesim/msg/Pose",
+  "bag_messages": 1213,
+  "mcap_sha256": "ebb8d5981dd530ac2948094b5c1f4e0d800fd6739183680f84d6be31422cb509",
+  "live_received": 1227,
+  "replay_received": 717
+}

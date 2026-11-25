@@ -1,0 +1,6 @@
+[INFO] [1795433912.623615061] [rosbag2_player]: Set rate to 1
+[INFO] [1795433912.623969455] [rosbag2_player]: Overriding QoS profile for topic /robot_a/sensor_pose
+[INFO] [1795433912.637414432] [rosbag2_player]: Playback until timestamp: -1
+[WARN] [1795433913.019820875] [rosbag2_player]: New subscription discovered on topic '/robot_a/sensor_pose', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[WARN] [1795433927.218775700] [rosbag2_player]: New subscription discovered on topic '/robot_a/sensor_pose', requesting incompatible QoS. No messages will be sent to it. Last incompatible policy: RELIABILITY_QOS_POLICY
+[INFO] [1795433946.705543596] [rosbag2_player]: Stopping playback.

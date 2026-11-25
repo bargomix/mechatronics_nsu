@@ -32,3 +32,10 @@ ai_used: true
 
 Помощь ИИ: параметры `patrol`, тесты, скрипт опыта и отчёт.
 
+## PR05
+
+ai_used: true
+
+Инструмент: GPT-6 (Codex CLI).
+
+Помощь ИИ: launch, QoS, запись MCAP, тесты и отчёт. Проверено в ROS 2 Jazzy.

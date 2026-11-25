@@ -1,0 +1,216 @@
+$ ros2 topic info /robot_a/sensor_pose --verbose --no-daemon --spin-time 4
+Type: turtlesim/msg/Pose
+
+Publisher count: 1
+
+Node name: pose_relay
+Node namespace: /robot_a
+Topic type: turtlesim/msg/Pose
+Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
+Endpoint type: PUBLISHER
+GID: 01.0f.7f.01.c6.00.29.31.00.00.00.00.00.00.13.03
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 2
+
+Node name: pose_subscriber
+Node namespace: /robot_a
+Topic type: turtlesim/msg/Pose
+Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.7f.01.c7.00.69.30.00.00.00.00.00.00.13.04
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Node name: rosbag2_recorder
+Node namespace: /
+Topic type: turtlesim/msg/Pose
+Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.7f.01.c8.00.7e.8b.00.00.00.00.00.00.26.04
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+exit=0
+
+$ timeout --signal=INT --kill-after=3s 8s ros2 topic echo /robot_a/sensor_pose turtlesim/msg/Pose --once --qos-reliability best_effort --no-daemon --spin-time 4
+x: 5.238115310668945
+y: 8.850126266479492
+theta: -2.961585283279419
+linear_velocity: 0.5
+angular_velocity: 0.30000001192092896
+---
+exit=0
+
+$ ros2 launch course_bringup patrol.launch.py namespace:=robot_a bag_dir:=/pr05/experiment-clean/bag subscriber_reliability:=best_effort record:=true
+[INFO] [launch]: All log files can be found below /tmp/pr05-ros-logs/2026-11-23-11-38-04-186580-e43fa5380065-190
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [launch.user]: Recording /robot_a/sensor_pose: true, subscriber: best_effort
+[INFO] [turtlesim_node-1]: process started with pid [196]
+[INFO] [patrol-2]: process started with pid [197]
+[INFO] [pose_relay-3]: process started with pid [198]
+[INFO] [pose_subscriber-4]: process started with pid [199]
+[INFO] [ros2-5]: process started with pid [200]
+[turtlesim_node-1] QStandardPaths: XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-ubuntu'
+[turtlesim_node-1] [INFO] [1795433884.477026858] [turtlesim]: Starting turtlesim with node name /turtlesim
+[turtlesim_node-1] [INFO] [1795433884.486300429] [turtlesim]: Spawning turtle [turtle1] at x=[5.544445], y=[5.544445], theta=[0.000000]
+[pose_relay-3] [INFO] [1795433885.038440634] [robot_a.pose_relay]: Relaying pose to sensor_pose with best_effort
+[pose_subscriber-4] [INFO] [1795433885.152227623] [robot_a.pose_subscriber]: reliability=best_effort
+[patrol-2] [INFO] [1795433885.217961979] [robot_a.patrol]: Patrol started: linear_speed=0.5 m/s, turn_rate=0.3 rad/s, publish_hz=10.0 Hz, timer period=0.100 s, timers=1
+[ros2-5] stdin is not a terminal device. Keyboard handling disabled.[INFO] [1795433885.290805298] [rosbag2_recorder]: Press SPACE for pausing/resuming
+[ros2-5] [INFO] [1795433885.290864909] [rosbag2_recorder]: Event publisher thread: Started
+[ros2-5] [INFO] [1795433885.298415261] [rosbag2_recorder]: Starting recording to '/pr05/experiment-clean/bag'
+[ros2-5] [INFO] [1795433885.302045495] [rosbag2_recorder]: Listening for topics...
+[ros2-5] [INFO] [1795433885.302095709] [rosbag2_recorder]: Recording...
+[ros2-5] [INFO] [1795433885.302257241] [rosbag2_recorder]: Topics discovery started.
+[ros2-5] [INFO] [1795433885.469716248] [rosbag2_recorder]: Subscribed to topic '/robot_a/sensor_pose'
+[ros2-5] [INFO] [1795433885.469753397] [rosbag2_recorder]: All requested topics are subscribed. Stopping discovery...
+[ros2-5] [INFO] [1795433885.469762665] [rosbag2_recorder]: Topics discovery stopped.
+[pose_subscriber-4] [INFO] [1795433886.107131746] [robot_a.pose_subscriber]: received=59
+[pose_subscriber-4] [INFO] [1795433887.106667841] [robot_a.pose_subscriber]: received=121
+[pose_subscriber-4] [INFO] [1795433888.106397157] [robot_a.pose_subscriber]: received=184
+[pose_subscriber-4] [INFO] [1795433889.106212926] [robot_a.pose_subscriber]: received=246
+[pose_subscriber-4] [INFO] [1795433890.106533490] [robot_a.pose_subscriber]: received=309
+[pose_subscriber-4] [INFO] [1795433891.106524567] [robot_a.pose_subscriber]: received=371
+[pose_subscriber-4] [INFO] [1795433892.106112087] [robot_a.pose_subscriber]: received=434
+[pose_subscriber-4] [INFO] [1795433893.106552545] [robot_a.pose_subscriber]: received=496
+[pose_subscriber-4] [INFO] [1795433894.107185714] [robot_a.pose_subscriber]: received=559
+[pose_subscriber-4] [INFO] [1795433895.106190119] [robot_a.pose_subscriber]: received=621
+[pose_subscriber-4] [INFO] [1795433896.106652918] [robot_a.pose_subscriber]: received=684
+[pose_subscriber-4] [INFO] [1795433897.106475457] [robot_a.pose_subscriber]: received=746
+[pose_subscriber-4] [INFO] [1795433898.107019548] [robot_a.pose_subscriber]: received=809
+[pose_subscriber-4] [INFO] [1795433899.106638185] [robot_a.pose_subscriber]: received=871
+[pose_subscriber-4] [INFO] [1795433900.106182682] [robot_a.pose_subscriber]: received=934
+[pose_subscriber-4] [INFO] [1795433901.106988142] [robot_a.pose_subscriber]: received=996
+[pose_subscriber-4] [INFO] [1795433902.106843041] [robot_a.pose_subscriber]: received=1059
+[pose_subscriber-4] [INFO] [1795433903.106218912] [robot_a.pose_subscriber]: received=1121
+[pose_subscriber-4] [INFO] [1795433904.107062032] [robot_a.pose_subscriber]: received=1165
+[pose_subscriber-4] [INFO] [1795433905.106524665] [robot_a.pose_subscriber]: received=1227
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[INFO] [ros2-5]: sending signal 'SIGINT' to process[ros2-5]
+[INFO] [pose_subscriber-4]: sending signal 'SIGINT' to process[pose_subscriber-4]
+[INFO] [pose_relay-3]: sending signal 'SIGINT' to process[pose_relay-3]
+[INFO] [patrol-2]: sending signal 'SIGINT' to process[patrol-2]
+[INFO] [turtlesim_node-1]: sending signal 'SIGINT' to process[turtlesim_node-1]
+[ros2-5] [INFO] [1795433905.182422023] [rosbag2_recorder]: Pausing recording.
+[ros2-5] [INFO] [1795433905.182537891] [rosbag2_cpp]: Writing remaining messages from cache to the bag. It may take a while
+[ros2-5] [INFO] [1795433905.185205590] [rosbag2_recorder]: Recording stopped
+[turtlesim_node-1] [INFO] [1795433905.185664410] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ros2-5] [INFO] [1795433905.187261192] [rosbag2_recorder]: Event publisher thread: Exited
+[INFO] [turtlesim_node-1]: process has finished cleanly [pid 196]
+[INFO] [pose_relay-3]: process has finished cleanly [pid 198]
+[INFO] [ros2-5]: process has finished cleanly [pid 200]
+[INFO] [pose_subscriber-4]: process has finished cleanly [pid 199]
+[INFO] [patrol-2]: process has finished cleanly [pid 197]
+exit=0
+
+$ timeout 10s ros2 topic echo /turtle1/cmd_vel geometry_msgs/msg/Twist --once --no-daemon --spin-time 4
+linear:
+  x: 0.5
+  y: 0.0
+  z: 0.0
+angular:
+  x: 0.0
+  y: 0.0
+  z: 0.3
+---
+exit=0
+
+$ ros2 topic info /robot_a/sensor_pose --verbose --no-daemon --spin-time 4
+Type: turtlesim/msg/Pose
+
+Publisher count: 1
+
+Node name: rosbag2_player
+Node namespace: /
+Topic type: turtlesim/msg/Pose
+Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
+Endpoint type: PUBLISHER
+GID: 01.0f.7f.01.56.01.b5.ff.00.00.00.00.00.00.14.03
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 1
+
+Node name: replay_best_effort
+Node namespace: /robot_a
+Topic type: turtlesim/msg/Pose
+Topic type hash: RIHS01_739beba26bcba6920404ba722b7b8321348512f92ea5be235c47251940dd8aa9
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.7f.01.a8.01.72.63.00.00.00.00.00.00.13.04
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): UNKNOWN
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+exit=0
+
+$ timeout --signal=INT --kill-after=3s 8s ros2 topic echo /robot_a/sensor_pose turtlesim/msg/Pose --once --qos-reliability best_effort --no-daemon --spin-time 4
+x: 5.309180736541748
+y: 8.861653327941895
+theta: -3.0047852993011475
+linear_velocity: 0.5
+angular_velocity: 0.30000001192092896
+---
+exit=0
+
+$ ros2 run course_bringup pose_subscriber --ros-args -r __ns:=/robot_a -r __node:=replay_best_effort -p reliability:=best_effort
+[INFO] [1795433931.904284449] [robot_a.replay_best_effort]: reliability=best_effort
+[INFO] [1795433932.860527976] [robot_a.replay_best_effort]: received=0
+[INFO] [1795433933.860433028] [robot_a.replay_best_effort]: received=0
+[INFO] [1795433934.860445551] [robot_a.replay_best_effort]: received=36
+[INFO] [1795433935.860324955] [robot_a.replay_best_effort]: received=99
+[INFO] [1795433936.860259263] [robot_a.replay_best_effort]: received=161
+[INFO] [1795433937.860432879] [robot_a.replay_best_effort]: received=224
+[INFO] [1795433938.860438642] [robot_a.replay_best_effort]: received=286
+[INFO] [1795433939.860700104] [robot_a.replay_best_effort]: received=342
+[INFO] [1795433940.860640706] [robot_a.replay_best_effort]: received=404
+[INFO] [1795433941.860216054] [robot_a.replay_best_effort]: received=467
+[INFO] [1795433942.860869684] [robot_a.replay_best_effort]: received=529
+[INFO] [1795433943.860701574] [robot_a.replay_best_effort]: received=592
+[INFO] [1795433944.860724653] [robot_a.replay_best_effort]: received=654
+[INFO] [1795433945.860817192] [robot_a.replay_best_effort]: received=717
+exit=0
+
+$ ros2 bag info /pr05/experiment-clean/bag
+
+Files:             bag_0.mcap
+Bag size:          88.7 KiB
+Storage id:        mcap
+ROS Distro:        jazzy
+Duration:          19.697378710s
+Start:             Nov 23 2026 11:38:05.473025250 (1795433885.473025250)
+End:               Nov 23 2026 11:38:25.170403960 (1795433905.170403960)
+Messages:          1213
+Topic information: Topic: /robot_a/sensor_pose | Type: turtlesim/msg/Pose | Count: 1213 | Serialization Format: cdr
+Service:           0
+Service information:
+exit=0
+

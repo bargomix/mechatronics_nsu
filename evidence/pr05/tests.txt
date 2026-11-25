@@ -1,0 +1,11 @@
+$ colcon test --packages-select turtle_bringup patrol course_bringup
+Starting >>> patrol
+Starting >>> turtle_bringup
+Finished <<< turtle_bringup [5.23s]
+Finished <<< patrol [9.24s]
+Starting >>> course_bringup
+Finished <<< course_bringup [2.50s]
+
+Summary: 3 packages finished [13.3s]
+$ colcon test-result --verbose
+Summary: 27 tests, 0 errors, 0 failures, 1 skipped

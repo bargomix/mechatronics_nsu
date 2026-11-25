@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR05",
+  "commit": "bfd3e071e8b7c80b11a92c9537ff205e2fe24f8a",
+  "course_kit": {
+    "version": "v1-w11",
+    "archive_sha256": "0b67bfd41448549d21122124b7f49211ba2cd068cc56751871f319eadeb9d0ab"
+  },
+  "commands": [
+    "colcon build --symlink-install --packages-select turtle_bringup patrol course_bringup",
+    "ros2 launch course_bringup patrol.launch.py --show-args",
+    "colcon test --packages-select turtle_bringup patrol course_bringup",
+    "colcon test-result --verbose",
+    "python3 /repo/scripts/pr05-experiment.py --output /pr05/experiment-clean"
+  ],
+  "tests": [
+    {
+      "name": "Сборка, аргументы launch и тест доставки DDS",
+      "status": "passed",
+      "evidence": ["build.txt", "launch-args.txt", "tests.txt"]
+    },
+    {
+      "name": "Ноды в /robot_a, глобальный turtlesim, запись выключена при record:=false",
+      "status": "passed",
+      "evidence": ["commands.json", "launch-before.txt", "topics-before.txt"]
+    },
+    {
+      "name": "QoS на живом потоке и на одной записи",
+      "status": "passed",
+      "evidence": ["qos-before.txt", "qos-after.txt", "measurements.json"]
+    },
+    {
+      "name": "Один топик в MCAP, процессы завершены",
+      "status": "passed",
+      "evidence": ["bag-info.txt", "bag-metadata.yaml", "nodes-final.txt"]
+    }
+  ],
+  "defect": {
+    "reproducer": "Запустить с subscriber_reliability:=reliable и record:=false. Топик виден, у подписчика received=0, echo завершился по таймауту с кодом 124.",
+    "root_cause": "Подписчик запрашивает reliable, издатель предлагает best_effort. DDS обнаруживает оба конца, но сообщения не доставляются.",
+    "proof_after": "С best_effort подписчик и echo получили позу. Тот же MCAP проигран с best_effort override. На записи reliable снова дал 124, а best_effort получил сообщение и завершился с кодом 0. SHA-256 записи сохранился."
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true,
+    "replay_verified": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 2
+  },
+  "time_note": "По нормативу из задания.",
+  "ai_used": true
+}
