@@ -20,7 +20,7 @@ ai_used: true
 
 ai_used: true
 
-Инструмент: GPT-6.1-Sol-xhight (Codex CLI).
+Инструмент: GPT-6.1-Sol-xhight Codex CLI.
 Помощь ИИ: разбор подписки, таймера и remap; подготовка ноды patrol,
 тестов, скрипта повтора опыта и отчёта.
 
@@ -36,6 +36,6 @@ ai_used: true
 
 ai_used: true
 
-Инструмент: GPT-6 (Codex CLI).
+Инструмент: GPT-6.2-Sol-xhight Codex CLI.
 
 Помощь ИИ: launch, QoS, запись MCAP, тесты и отчёт. Проверено в ROS 2 Jazzy.
