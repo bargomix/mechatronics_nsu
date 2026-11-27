@@ -1,4 +1,4 @@
-name: PR05 build, tests and evidence
+name: PR06 model, tests and evidence
 
 on: [push, pull_request]
 
@@ -24,14 +24,17 @@ jobs:
             --workdir /work \
             "$image" bash -ec '
               source /opt/ros/jazzy/setup.bash
-              colcon build --symlink-install --packages-select turtle_bringup patrol course_bringup
+              colcon build --symlink-install --packages-select turtle_bringup patrol course_bringup course_description
               source install/setup.bash
               test -f "$(ros2 pkg prefix turtle_bringup)/share/turtle_bringup/launch/sim.launch.py"
               python3 -m py_compile src/turtle_bringup/launch/sim.launch.py
               ros2 pkg executables patrol | grep -Fx "patrol patrol"
               ros2 pkg prefix rosbag2_storage_mcap
               ros2 launch course_bringup patrol.launch.py --show-args
-              colcon test --packages-select turtle_bringup patrol course_bringup
+              ros2 launch course_description vehicle.launch.py --show-args
+              xacro src/course_description/urdf/vehicle.urdf.xacro > /tmp/course-vehicle.urdf
+              check_urdf /tmp/course-vehicle.urdf
+              colcon test --packages-select turtle_bringup patrol course_bringup course_description
               colcon test-result --verbose
             '
       - name: Download pinned course kit
@@ -39,11 +42,11 @@ jobs:
         run: |
           kit_url="$(python3 -c 'import json; print(json.load(open("course-kit.lock.json"))["archive_url"])')"
           kit_sha256="$(python3 -c 'import json; print(json.load(open("course-kit.lock.json"))["sha256"])')"
-          curl -fsSLo course-kit.tar.gz "$kit_url"
+          curl --retry 3 --connect-timeout 15 -fsSLo course-kit.tar.gz "$kit_url"
           printf '%s  %s\n' "$kit_sha256" course-kit.tar.gz | sha256sum -c -
           mkdir -p .course-kit
           tar -xzf course-kit.tar.gz -C .course-kit
-      - name: Validate PR05 report JSON
-        run: python3 -m json.tool evidence/pr05/report.json > /dev/null
-      - name: Check PR05 evidence and Git history
-        run: python3 .course-kit/v1/tools/check_practice.py PR05 --submission .
+      - name: Validate PR06 report JSON
+        run: python3 -m json.tool evidence/pr06/report.json > /dev/null
+      - name: Check PR06 evidence and Git history
+        run: python3 .course-kit/v1/tools/check_practice.py PR06 --submission .

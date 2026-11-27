@@ -1,6 +1,6 @@
 # Практические работы по ROS 2
 
-[ПР05. Launch, QoS и повтор записи](evidence/pr05/demo.md) · [ПР04](evidence/pr04/parameters.md) · [ПР03](docs/pr03.md) · [ПР02](docs/pr02.md)
+[ПР06. Модель робота и tf2](evidence/pr06/frames.md) · [ПР05](evidence/pr05/demo.md) · [ПР04](evidence/pr04/parameters.md) · [ПР03](docs/pr03.md) · [ПР02](docs/pr02.md)
 
 Предыдущие сдачи проверяются на своих коммитах с версией course kit из отчёта.
 

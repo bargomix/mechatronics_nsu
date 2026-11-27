@@ -1,0 +1,46 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.25
+      Plane Cell Count: 12
+      Reference Frame: <Fixed Frame>
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Source: Topic
+      Description Topic:
+        Depth: 1
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot_description
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Marker Scale: 0.24
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+  Enabled: true
+  Global Options:
+    Background Color: 44; 49; 56
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Name: root
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 2.35
+      Focal Point: {X: 0.10, Y: 0, Z: 0.20}
+      Pitch: 0.63
+      Yaw: 0.93
+      Target Frame: <Fixed Frame>
+Window Geometry:
+  Width: 1050
+  Height: 710
