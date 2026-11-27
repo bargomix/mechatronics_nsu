@@ -1,0 +1,142 @@
+$ colcon build --symlink-install --packages-select turtle_bringup patrol course_bringup course_description
+Starting >>> patrol
+Starting >>> course_description
+Starting >>> turtle_bringup
+Finished <<< turtle_bringup [5.49s]
+Finished <<< patrol [5.59s]
+Starting >>> course_bringup
+Finished <<< course_bringup [1.42s]
+Finished <<< course_description [8.12s]
+
+Summary: 4 packages finished [10.5s]
+exit=0
+
+$ ros2 launch course_description vehicle.launch.py --show-args
+Arguments (pass arguments as '<name>:=<value>'):
+
+    'model':
+        no description given
+        (default: PathJoinSubstitution('FindPackageShare(pkg='course_description'), 'urdf', 'vehicle.urdf.xacro''))
+
+    'rviz':
+        One of: ['false', 'true']
+        (default: 'false')
+exit=0
+
+$ xacro src/course_description/urdf/vehicle.urdf.xacro > vehicle.urdf
+exit=0
+
+$ check_urdf vehicle.urdf
+robot name is: course_ackermann
+---------- Successfully Parsed XML ---------------
+root Link: base_link has 7 child(ren)
+    child(1):  camera_link
+    child(2):  front_left_knuckle
+        child(1):  front_left_wheel
+    child(3):  front_right_knuckle
+        child(1):  front_right_wheel
+    child(4):  imu_link
+    child(5):  lidar_link
+    child(6):  rear_left_wheel
+    child(7):  rear_right_wheel
+exit=0
+
+$ colcon test --packages-select turtle_bringup patrol course_bringup course_description
+Starting >>> patrol
+Starting >>> course_description
+Starting >>> turtle_bringup
+Finished <<< course_description [1.00s]
+Finished <<< turtle_bringup [1.69s]
+Finished <<< patrol [5.11s]
+Starting >>> course_bringup
+Finished <<< course_bringup [1.75s]
+
+Summary: 4 packages finished [7.11s]
+exit=0
+
+$ colcon test-result --verbose
+Summary: 35 tests, 0 errors, 0 failures, 1 skipped
+exit=0
+
+$ xacro defect/urdf/vehicle.urdf.xacro > broken.urdf
+exit=0
+
+$ check_urdf broken.urdf
+robot name is: course_ackermann
+---------- Successfully Parsed XML ---------------
+root Link: base_link has 6 child(ren)
+    child(1):  camera_link
+        child(1):  lidar_link
+    child(2):  front_left_knuckle
+        child(1):  front_left_wheel
+    child(3):  front_right_knuckle
+        child(1):  front_right_wheel
+    child(4):  imu_link
+    child(5):  rear_left_wheel
+    child(6):  rear_right_wheel
+exit=0
+
+$ python3 -m pytest -q defect/test/test_vehicle_model.py -k lidar
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________________________ test_sensor_frame[lidar] ___________________________
+
+model = <Element 'robot' at 0x7540d15bf3d0>, sensor = 'lidar'
+
+    @pytest.mark.parametrize('sensor', ['camera', 'lidar', 'imu'])
+    def test_sensor_frame(model, sensor):
+        joint = model.find(f"joint[@name='{sensor}_joint']")
+        assert joint.attrib['type'] == 'fixed'
+>       assert joint.find('parent').attrib['link'] == 'base_link'
+E       AssertionError: assert 'camera_link' == 'base_link'
+E         - base_link
+E         + camera_link
+
+defect/test/test_vehicle_model.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED defect/test/test_vehicle_model.py::test_sensor_frame[lidar] - Assertio...
+1 failed, 6 deselected in 0.06s
+exit=1
+
+$ python3 -m pytest -q src/course_description/test/test_vehicle_model.py -k lidar
+.                                                                        [100%]
+1 passed, 6 deselected in 0.03s
+exit=0
+
+$ ros2 launch course_description vehicle.launch.py rviz:=true model:=/pr06/defect/urdf/vehicle.urdf.xacro
+[rviz2-2] [INFO] [1795631320.676057622] [rviz2]: OpenGl version: 4.5 (GLSL 4.5)
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 64]
+[INFO] [rviz2-2]: process has finished cleanly [pid 65]
+exit=0
+
+$ timeout --signal=INT --kill-after=3s 9s ros2 run tf2_ros tf2_echo base_link lidar_link
+- Translation: [0.560, 0.000, 0.760]
+exit=124
+
+$ ros2 run tf2_tools view_frames
+[INFO] [1795631336.797783645] [view_frames]: Listening to tf data for 5.0 seconds...
+[INFO] [1795631341.894302858] [view_frames]: Generating graph...
+[INFO] [1795631341.901516878] [view_frames]: Result:tf2_msgs.srv.FrameGraph_Response(frame_yaml="front_left_knuckle: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.195\n  most_recent_transform: 1795631341.888191\n  oldest_transform: 1795631336.787849\n  buffer_length: 5.100\nfront_left_wheel: \n  parent: 'front_left_knuckle'\n  broadcaster: 'default_authority'\n  rate: 10.195\n  most_recent_transform: 1795631341.888191\n  oldest_transform: 1795631336.787849\n  buffer_length: 5.100\nfront_right_knuckle: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.195\n  most_recent_transform: 1795631341.888191\n  oldest_transform: 1795631336.787849\n  buffer_length: 5.100\nfront_right_wheel: \n  parent: 'front_right_knuckle'\n  broadcaster: 'default_authority'\n  rate: 10.195\n  most_recent_transform: 1795631341.888191\n  oldest_transform: 1795631336.787849\n  buffer_length: 5.100\nrear_left_wheel: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.195\n  most_recent_transform: 1795631341.888191\n  oldest_transform: 1795631336.787849\n  buffer_length: 5.100\nrear_right_wheel: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.195\n  most_recent_transform: 1795631341.888191\n  oldest_transform: 1795631336.787849\n  buffer_length: 5.100\ncamera_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nimu_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nlidar_link: \n  parent: 'camera_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\n")
+[INFO] [1795631341.918303208] [view_frames]: Exporting graph in frames_2026-11-25_18.29.01.pdf file...
+exit=0
+
+$ ros2 launch course_description vehicle.launch.py rviz:=true
+[rviz2-2] [INFO] [1795631347.330483927] [rviz2]: OpenGl version: 4.5 (GLSL 4.5)
+[INFO] [robot_state_publisher-1]: process has finished cleanly [pid 207]
+[INFO] [rviz2-2]: process has finished cleanly [pid 208]
+exit=0
+
+$ timeout --signal=INT --kill-after=3s 9s ros2 run tf2_ros tf2_echo base_link lidar_link
+- Translation: [0.280, 0.000, 0.380]
+exit=124
+
+$ ros2 run tf2_tools view_frames
+[INFO] [1795631360.109800281] [view_frames]: Listening to tf data for 5.0 seconds...
+[INFO] [1795631365.148245791] [view_frames]: Generating graph...
+[INFO] [1795631365.154985025] [view_frames]: Result:tf2_msgs.srv.FrameGraph_Response(frame_yaml="camera_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nimu_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nlidar_link: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10000.000\n  most_recent_transform: 0.000000\n  oldest_transform: 0.000000\n  buffer_length: 0.000\nfront_left_knuckle: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.200\n  most_recent_transform: 1795631365.143574\n  oldest_transform: 1795631360.143583\n  buffer_length: 5.000\nfront_left_wheel: \n  parent: 'front_left_knuckle'\n  broadcaster: 'default_authority'\n  rate: 10.200\n  most_recent_transform: 1795631365.143574\n  oldest_transform: 1795631360.143583\n  buffer_length: 5.000\nfront_right_knuckle: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.200\n  most_recent_transform: 1795631365.143574\n  oldest_transform: 1795631360.143583\n  buffer_length: 5.000\nfront_right_wheel: \n  parent: 'front_right_knuckle'\n  broadcaster: 'default_authority'\n  rate: 10.200\n  most_recent_transform: 1795631365.143574\n  oldest_transform: 1795631360.143583\n  buffer_length: 5.000\nrear_left_wheel: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.200\n  most_recent_transform: 1795631365.143574\n  oldest_transform: 1795631360.143583\n  buffer_length: 5.000\nrear_right_wheel: \n  parent: 'base_link'\n  broadcaster: 'default_authority'\n  rate: 10.200\n  most_recent_transform: 1795631365.143574\n  oldest_transform: 1795631360.143583\n  buffer_length: 5.000\n")
+[INFO] [1795631365.175045010] [view_frames]: Exporting graph in frames_2026-11-25_18.29.25.pdf file...
+exit=0
+
+$ ros2 node list --no-daemon --spin-time 3
+exit=0
+

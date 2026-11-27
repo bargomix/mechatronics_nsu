@@ -1,0 +1,11 @@
+--- a/src/course_description/urdf/vehicle.urdf.xacro
++++ b/src/course_description/urdf/vehicle.urdf.xacro
+@@ -105,7 +105,7 @@
+   <xacro:sensor name="camera" parent="base_link" offset="0.06 0 0">
+     <geometry><box size="0.08 0.08 0.05"/></geometry>
+   </xacro:sensor>
+-  <xacro:sensor name="lidar" parent="base_link" offset="0 0 0.05">
++  <xacro:sensor name="lidar" parent="camera_link" offset="0 0 0.05">
+     <geometry><cylinder radius="0.045" length="0.05"/></geometry>
+   </xacro:sensor>
+   <xacro:sensor name="imu" parent="base_link" offset="-0.055 0 0">

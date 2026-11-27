@@ -39,3 +39,11 @@ ai_used: true
 Инструмент: GPT-6.2-Sol-xhight Codex CLI.
 
 Помощь ИИ: launch, QoS, запись MCAP, тесты и отчёт. Проверено в ROS 2 Jazzy.
+
+## PR06
+
+ai_used: true
+
+Инструмент: GPT-6.2-Sol-xhight Codex CLI.
+
+Помощь ИИ: модель Xacro, launch, тесты и отчёт. Проверено через colcon, tf2 и RViz.
